@@ -81,6 +81,12 @@
         <option value="vn">Tiếng Việt</option>
       </select>
 
+      <label for="unit">Bài: </label>
+      <select id="unit">
+        <option value="vocabList_u_26">26</option>
+        <option value="vocabList_u_27">27</option>
+      </select>
+
       <button onclick="startQuiz()">Bắt đầu</button>
     </div>
     <div class="status" id="progress"></div>
@@ -94,7 +100,7 @@
 
   <script src="vocabList.js"></script>
   <script>
-    const vocabList = vocabList_first;
+    const vocabList = vocabList_first[0][document.getElementById('unit').value];
 
     let quizItems = [];
     let currentIndex = 0;
