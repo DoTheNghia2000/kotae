@@ -100,8 +100,7 @@
 
   <script src="vocabList.js"></script>
   <script>
-    const vocabList = vocabList_first[0][document.getElementById('unit').value];
-
+    let vocabList;
     let quizItems = [];
     let currentIndex = 0;
     let score = 0;
@@ -112,6 +111,8 @@
     }
 
     function startQuiz() {
+      const unit = document.getElementById('unit').value;
+      vocabList = vocabList_first[unit];
       quizItems = shuffle([...vocabList]);
       currentIndex = 0;
       score = 0;
