@@ -101,7 +101,7 @@ const vocabList_first = {
     { jp: "他の / 外の（ほかの）", vn: "...khác" },
     { jp: "はっきり ", vn: "rõ ràng" }
   ],
-  vocabList_u_27: [
+  vocabList_u_28: [
     { jp: "売れます（うれます）", vn: "bán" },
     { jp: "踊ります（おどります）", vn: "nhảy" },
     { jp: "噛みます（かみます）", vn: "nhai, cắn" },
