@@ -97,7 +97,9 @@ const vocabList_first = {
     { jp: "空（そら）", vn: "bầu trời" },
     { jp: "飛びます（とびます）", vn: "bay" },
     { jp: "自分（じぶん）", vn: "tự mình" },
-    { jp: "将来（しょうらい）", vn: "tương lai" }
+    { jp: "将来（しょうらい）", vn: "tương lai" },
+    { jp: "ほかの（他の / 外の）", vn: "...khác" },
+    { jp: "はっきり ", vn: "rõ ràng" }
   ]
 };
 
