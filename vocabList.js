@@ -506,7 +506,7 @@ const vocabList_first = {
     { jp: "（詳しい）くわしい", vn: "cụ thể, chi tiết" },
     { jp: "（スキー場）スキーじょう", vn: "khu trượt tuyết" },
     { jp: "（朱）しゅ", vn: "màu đỏ tươi" },
-    { jp: "（交わります）", vn: "chơi với, quen với" },
+    { jp: "（交わります）まじわります", vn: "chơi với, quen với" },
     { jp: "ことわざ", vn: "thành ngữ" },
     { jp: "（関係）かんけい", vn: "quan hệ" },
     { jp: "（仲良くします）なかよくします", vn: "chơi thân với" },
