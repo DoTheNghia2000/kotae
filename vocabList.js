@@ -887,7 +887,7 @@ const vocabList_first = {
     { jp: "今にも（いまにも）", vn: "bất kỳ lúc nào (ngay bây giờ)" },
     { jp: "ドライブ", vn: "lái xe đi chơi" },
     { jp: "原因（げんいん）", vn: "nguyên nhân" },
-    { jp: "センス", vn: "có gu, có khiếu (センスがある)" },
+    { jp: "センス(センスがある)", vn: "có gu, có khiếu" },
     { jp: "例えば（たとえば）", vn: "ví dụ như…" },
     { jp: "洋服（ようふく）", vn: "quần áo kiểu Tây" },
     { jp: "合います（あいます）", vn: "vừa, hợp (vừa cỡ, hợp với…)" }
