@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - Bài 26</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .question {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .option {
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      font-size: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      background-color: #ddd;
+    }
+
+    .correct {
+      background-color: #4caf50 !important;
+      color: white;
+    }
+
+    .incorrect {
+      background-color: #f44336 !important;
+      color: white;
+    }
+
+    .controls,
+    .status {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    select,
+    button {
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .status {
+      font-size: 1.2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="controls">
+      <label for="questionLang">Câu hỏi: </label>
+      <select id="questionLang">
+        <option value="vn">Tiếng Việt</option>
+        <option value="jp">Tiếng Nhật</option>
+      </select>
+
+      <label for="answerLang">Câu trả lời: </label>
+      <select id="answerLang">
+        <option value="jp">Tiếng Nhật</option>
+        <option value="vn">Tiếng Việt</option>
+      </select>
+
+      <label for="unit">Bài: </label>
+      <!-- <select id="unit">
+        <option value="vocabList_u_26">26</option>
+        <option value="vocabList_u_27">27</option>
+        <option value="vocabList_u_28">28</option>
+        <option value="vocabList_u_29">29</option>
+        <option value="vocabList_u_30">30</option>
+        <option value="vocabList_u_31">31</option>
+        <option value="vocabList_u_32">32</option>
+        <option value="vocabList_u_33">33</option>
+        <option value="vocabList_u_34">34</option>
+        <option value="vocabList_u_35">35</option>
+        <option value="vocabList_u_36">36</option>
+        <option value="vocabList_u_37">37</option>
+        <option value="vocabList_u_38">38</option>
+        <option value="vocabList_u_39">39</option>
+        <option value="vocabList_u_40">40</option>
+        <option value="vocabList_u_41">41</option>
+        <option value="vocabList_u_42">42</option>
+        <option value="vocabList_u_43">43</option>
+        <option value="vocabList_u_44">44</option>
+        <option value="vocabList_u_45">45</option>
+        <option value="vocabList_u_46">46</option>
+        <option value="vocabList_u_47">47</option>
+      </select> -->
+      <label>Bắt đầu: <input type="number" id="start" min="1" value="1"></label>
+      <label>Kết thúc: <input type="number" id="end" min="1" value="10"></label>
+
+      <button onclick="startQuiz()">Bắt đầu</button>
+    </div>
+    <div class="controls">
+      <label for="questionLang">Câu hỏi: </label>
+      <select id="questionLang">
+        <option value="vn">Tiếng Việt</option>
+        <option value="jp">Tiếng Nhật</option>
+      </select>
+
+      <label for="answerLang">Câu trả lời: </label>
+      <select id="answerLang">
+        <option value="jp">Tiếng Nhật</option>
+        <option value="vn">Tiếng Việt</option>
+      </select>
+
+      <label for="unit_kanji">Bài: </label>
+      <select id="unit_kanji">
+        <option value="vocablist_kaji_1">1</option>
+        <option value="vocablist_kaji_2">2</option>
+        <option value="vocablist_kaji_3">3</option>
+        <option value="vocablist_kaji_4">4</option>
+        <option value="vocablist_kaji_5">5</option>
+      </select>
+
+      <button onclick="startQuiz_kanji()">Bắt đầu</button>
+    </div>
+    <div class="status" id="progress"></div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="controls hidden" id="nextContainer">
+      <button onclick="nextQuestion()">Tiếp tục</button>
+    </div>
+    <div class="status hidden" id="summary"></div>
+  </div>
+
+  <script src="vocabList.js"></script>
+  <script src="vocablistn3.js"></script>
+  <script src="vocablist_kanji.js"></script>
+  <script>
+    let vocabList;
+    let quizItems = [];
+    let currentIndex = 0;
+    let score = 0;
+    let total = 0;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    // function startQuiz() {
+    //   const unit = document.getElementById('unit').value;
+    //   vocabList = vocabList_first[unit];
+    //   quizItems = shuffle([...vocabList]);
+    //   currentIndex = 0;
+    //   score = 0;
+    //   total = quizItems.length;
+    //   document.getElementById('summary').classList.add('hidden');
+    //   nextQuestion();
+    // }
+    function startQuiz() {
+      const start = document.getElementById('start').value;
+      const end = document.getElementById('end').value;
+      vocabList = vocabList_n3.slice(start, end);
+      quizItems = shuffle([...vocabList]);
+      currentIndex = 0;
+      score = 0;
+      total = quizItems.length;
+      document.getElementById('summary').classList.add('hidden');
+      nextQuestion();
+    }
+
+    function startQuiz_kanji() {
+      const unit = document.getElementById('unit_kanji').value;
+      vocabList = vocablist_kaji[unit];
+      quizItems = shuffle([...vocabList]);
+      currentIndex = 0;
+      score = 0;
+      total = quizItems.length;
+      document.getElementById('summary').classList.add('hidden');
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentIndex >= total) {
+        document.getElementById('question').textContent = '';
+        document.getElementById('options').innerHTML = '';
+        document.getElementById('nextContainer').classList.add('hidden');
+        document.getElementById('summary').classList.remove('hidden');
+        document.getElementById('summary').textContent = `Hoàn thành! Đúng: ${score}, Sai: ${total - score}`;
+        return;
+      }
+
+      const qLang = document.getElementById('questionLang').value;
+      const aLang = document.getElementById('answerLang').value;
+      const currentQuestion = quizItems[currentIndex];
+
+      document.getElementById('progress').textContent = `Câu ${currentIndex + 1} / ${total}`;
+      document.getElementById('question').textContent = currentQuestion[qLang];
+
+      let options = shuffle([currentQuestion, ...shuffle(vocabList.filter(v => v !== currentQuestion)).slice(0, 3)]);
+
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      options.forEach(item => {
+        const btn = document.createElement('div');
+        btn.className = 'option';
+        btn.textContent = item[aLang];
+        btn.onclick = () => selectAnswer(item === currentQuestion, btn, optionsDiv, currentQuestion[aLang]);
+        optionsDiv.appendChild(btn);
+      });
+
+      document.getElementById('nextContainer').classList.add('hidden');
+    }
+
+    function selectAnswer(correct, element, optionsDiv, correctText) {
+      const optionButtons = optionsDiv.querySelectorAll('.option');
+      optionButtons.forEach(btn => {
+        btn.onclick = null;
+        if (btn.textContent === correctText) btn.classList.add('correct');
+      });
+      if (correct) {
+        score++;
+      } else {
+        element.classList.add('incorrect');
+      }
+      document.getElementById('nextContainer').classList.remove('hidden');
+      currentIndex++;
+    }
+  </script>
+</body>
+
+</html>
